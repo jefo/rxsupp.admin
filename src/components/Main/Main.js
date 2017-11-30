@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import AdminPage from '../AdminPage';
+import AdminPage from '../AdminPage/AdminPage';
 import LoginPage from '../LoginPage/LoginPage';
 
 import './Main.css';

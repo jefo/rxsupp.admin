@@ -1,4 +1,6 @@
-main,
-#root {
+html,
+body,
+#root,
+main {
     height: 100%;
 }
