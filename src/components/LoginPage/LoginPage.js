@@ -14,7 +14,7 @@ export default class LoginPage extends React.Component {
                         <Segment>
                             <Form>
                                 <Form.Input icon='user' iconPosition='left' placeholder='Login' />
-                                <Form.Input icon='lock' iconPosition='left' placeholder='Password' />
+                                <Form.Input icon='lock' iconPosition='left' placeholder='Password' type="password" />
                                 <Button color='teal' fluid type='submit'>Login</Button>
                             </Form>
                         </Segment>
