@@ -1,0 +1,42 @@
+{
+  "name": "rxsupp.admin",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/jefo/rxsupp.admin.git",
+  "author": "jefo <johnyjefo@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "neutrino start --use neutrino-preset-react",
+    "build": "neutrino build --use neutrino-preset-react",
+    "test": "neutrino test --use neutrino-preset-react neutrino-preset-karma"
+  },
+  "dependencies": {
+    "buffer": "^5.0.8",
+    "classnames": "^2.2.5",
+    "express": "^4.16.2",
+    "immutable": "^3.8.2",
+    "lodash": "^4.17.4",
+    "neutrino-preset-node": "^7.3.3",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-cli-logger": "^2.0.0",
+    "redux-logger": "^3.0.6",
+    "reselect": "^3.0.1",
+    "rmwc": "^0.0.1-rc9",
+    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-react": "^0.77.0"
+  },
+  "devDependencies": {
+    "neutrino": "^7.3.1",
+    "neutrino-preset-karma": "^7.3.1",
+    "neutrino-preset-react": "^7.3.1",
+    "react-addons-test-utils": "^15.6.2",
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-devtools-inspector": "^0.11.3"
+  }
+}
