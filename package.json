@@ -6,8 +6,8 @@
   "author": "jefo <johnyjefo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "neutrino start --use neutrino-preset-react",
-    "build": "neutrino build --use neutrino-preset-react",
+    "start": "neutrino start",
+    "build": "neutrino build",
     "test": "neutrino test --use neutrino-preset-react neutrino-preset-karma"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "neutrino-preset-node": "^7.3.3",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-images-upload": "^1.1.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
