@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { createSelector } from 'reselect';
+import { connect } from 'react-redux';
 import {
     Form,
     Grid,
@@ -17,28 +19,17 @@ import {
 import axios from 'axios';
 
 import './Users.css';
+import { USERS_FETCH } from '../../redux/users';
 
-const instance = axios.create({
-    baseURL: 'http://localhost:8080'
-});
-
-export default class Users extends React.Component {
-
-    constructor(...args) {
-        super(...args);
-        this.state = { users: {} };
-    }
+class Users extends React.Component {
 
     componentWillMount() {
-        instance.get('/users')
-            .then(res => {
-                this.setState({ users: res.data });
-            });
+        this.props.fetchUsers();
     }
 
     render() {
-        const renderUsers = () => Object.keys(this.state.users).map(key => {
-            let user = this.state.users[key];
+        const renderUsers = () => Object.keys(this.props.users).map(key => {
+            let user = this.props.users[key];
             let routeHref = '/admin/users/' + user.login;
             return (
                 <List.Item key={key} as={Link} to={routeHref}>
@@ -46,6 +37,7 @@ export default class Users extends React.Component {
                     <List.Content>
                         <List.Header>
                             {user.login}
+
                         </List.Header>
                     </List.Content>
                 </List.Item>
@@ -54,7 +46,8 @@ export default class Users extends React.Component {
         return (
             <Grid columns={2} divided>
                 <Grid.Row>
-                    <Grid.Column width='5'>
+                    <Grid.Column width='4'>
+                        <Button>Добавить</Button>
                         <List selection verticalAlign='middle'>
                             {renderUsers()}
                         </List>
@@ -90,8 +83,19 @@ export default class Users extends React.Component {
             </Grid>
         );
     }
-
-    onImageChange() {
-
-    }
 }
+
+const mapStateToProps = createSelector(
+    state => state.users,
+    (users) => ({
+        users: users.toJS()
+    })
+);
+
+const mapDispatchToProps = dispatch => ({
+    fetchUsers() {
+        dispatch({ type: USERS_FETCH });
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);
