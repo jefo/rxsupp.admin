@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     Form,
     Grid,
@@ -13,36 +14,49 @@ import {
     Image,
     Label
 } from 'semantic-ui-react';
-import ImageUploader from 'react-images-upload';
+import axios from 'axios';
 
 import './Users.css';
 
+const instance = axios.create({
+    baseURL: 'http://localhost:8080'
+});
+
 export default class Users extends React.Component {
 
+    constructor(...args) {
+        super(...args);
+        this.state = { users: {} };
+    }
+
+    componentWillMount() {
+        instance.get('/users')
+            .then(res => {
+                this.setState({ users: res.data });
+            });
+    }
+
     render() {
+        const renderUsers = () => Object.keys(this.state.users).map(key => {
+            let user = this.state.users[key];
+            let routeHref = '/admin/users/' + user.login;
+            return (
+                <List.Item key={key} as={Link} to={routeHref}>
+                    <Image avatar src={user.avatar} />
+                    <List.Content>
+                        <List.Header>
+                            {user.login}
+                        </List.Header>
+                    </List.Content>
+                </List.Item>
+            )
+        });
         return (
             <Grid columns={2} divided>
                 <Grid.Row>
-                    <Grid.Column width='3'>
+                    <Grid.Column width='5'>
                         <List selection verticalAlign='middle'>
-                            <List.Item>
-                                <Image avatar src='/assets/images/avatar/small/helen.jpg' />
-                                <List.Content>
-                                    <List.Header>Helen</List.Header>
-                                </List.Content>
-                            </List.Item>
-                            <List.Item>
-                                <Image avatar src='/assets/images/avatar/small/christian.jpg' />
-                                <List.Content>
-                                    <List.Header>Christian</List.Header>
-                                </List.Content>
-                            </List.Item>
-                            <List.Item>
-                                <Image avatar src='/assets/images/avatar/small/daniel.jpg' />
-                                <List.Content>
-                                    <List.Header>Daniel</List.Header>
-                                </List.Content>
-                            </List.Item>
+                            {renderUsers()}
                         </List>
                     </Grid.Column>
                     <Grid.Column>

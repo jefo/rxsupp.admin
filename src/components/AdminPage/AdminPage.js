@@ -36,7 +36,7 @@ export default class AdminPage extends React.Component {
                         <Grid.Row>
                             <Grid.Column>
                                 <Switch>
-                                    <Route exact path='/admin/users' component={Users} />
+                                    <Route path='/admin/users' component={Users} />
                                     <Route exact path='/admin/server' component={ChatServerManager} />
                                 </Switch>
                             </Grid.Column>

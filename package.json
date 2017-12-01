@@ -11,6 +11,7 @@
     "test": "neutrino test --use neutrino-preset-react neutrino-preset-karma"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "buffer": "^5.0.8",
     "classnames": "^2.2.5",
     "express": "^4.16.2",
