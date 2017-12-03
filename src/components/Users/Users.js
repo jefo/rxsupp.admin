@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { Switch, Route, Link } from 'react-router-dom';
 import {
     Form,
     Grid,
@@ -19,7 +19,8 @@ import {
 import axios from 'axios';
 
 import './Users.css';
-import { USERS_FETCH } from '../../redux/users';
+import { USERS_FETCH, USER_REMOVE, USER_UPDATE } from '../../redux/users';
+import UserEditor from './UserEditor';
 
 class Users extends React.Component {
 
@@ -28,21 +29,34 @@ class Users extends React.Component {
     }
 
     render() {
-        const renderUsers = () => Object.keys(this.props.users).map(key => {
-            let user = this.props.users[key];
-            let routeHref = '/admin/users/' + user.login;
-            return (
-                <List.Item key={key} as={Link} to={routeHref}>
-                    <Image avatar src={user.avatar} />
-                    <List.Content>
-                        <List.Header>
-                            {user.login}
-
-                        </List.Header>
-                    </List.Content>
-                </List.Item>
-            )
-        });
+        const renderUsers = () => {
+            let usersKeys = Object.keys(this.props.users);
+            if (usersKeys.length === 0) {
+                return (
+                    <List.Item>
+                        <List.Content>
+                            Список пуст
+                        </List.Content>
+                    </List.Item>
+                )
+            } else {
+                return usersKeys.map(key => {
+                    let user = this.props.users[key];
+                    let routeHref = '/admin/users/' + user.login;
+                    return (
+                        <List.Item key={key} as={Link} to={routeHref}>
+                            <Image avatar src={user.avatar} />
+                            <List.Content>
+                                <List.Header>
+                                    {user.login}
+                                </List.Header>
+                            </List.Content>
+                        </List.Item>
+                    )
+                });
+            }
+        };
+        const { match, users } = this.props;
         return (
             <Grid columns={2} divided>
                 <Grid.Row>
@@ -53,31 +67,9 @@ class Users extends React.Component {
                         </List>
                     </Grid.Column>
                     <Grid.Column>
-                        <Form>
-                            <Form.Group inline>
-                                <Form.Field>
-                                    <input className='input-upload-avatar' id='avatar-input' type='file' />
-                                    <label className='btn-upload-avatar' htmlFor='avatar-input'>
-                                        <Icon color='blue' name='user' size='huge' circular />
-                                    </label>
-                                </Form.Field>
-                                <List>
-                                    <List.Item>
-                                        <Form.Input placeholder='Email' />
-                                    </List.Item>
-                                    <List.Item>
-                                        <Form.Input placeholder='Имя' />
-                                    </List.Item>
-                                    <List.Item>
-                                        <Form.Input placeholder='Фамилия' />
-                                    </List.Item>
-                                </List>
-                            </Form.Group>
-                            <Button type='submit'>
-                                <Icon name='save' />
-                                Сохранить
-                            </Button>
-                        </Form>
+                        <Route exact path='/admin/users/:login' render={
+                            props => (<UserEditor users={this.props.users} removeUser={this.props.removeUser} updateUser={this.props.updateUser} {...props} />)
+                        } />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -87,7 +79,9 @@ class Users extends React.Component {
 
 const mapStateToProps = createSelector(
     state => state.users,
-    (users) => ({
+    state => state.routing,
+    (users, routing) => ({
+        routing,
         users: users.toJS()
     })
 );
@@ -95,6 +89,12 @@ const mapStateToProps = createSelector(
 const mapDispatchToProps = dispatch => ({
     fetchUsers() {
         dispatch({ type: USERS_FETCH });
+    },
+    removeUser(user) {
+        dispatch({ type: USER_REMOVE, payload: user });
+    },
+    updateUser(user) {
+        dispatch({ type: USER_UPDATE, payload: user });
     }
 });
 
