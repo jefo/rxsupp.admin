@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import axios from 'axios';
 
 import users, { createSagas } from './users';
 
@@ -16,7 +17,7 @@ const store = createStore(
 export const api = axios.create({
     baseURL: 'http://localhost:8080'
 });
-
-sagaMiddleware.run(createSagas(api).all);
+const sagas = createSagas(api);
+sagaMiddleware.run(sagas.all.bind(sagas));
 
 export default store;

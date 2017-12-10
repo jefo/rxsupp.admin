@@ -2,12 +2,12 @@ import React from 'react';
 import { Form, Grid, Button, Segment, Header, Sidebar, Menu, Icon, Divider } from 'semantic-ui-react';
 import { Switch, Route, Link } from 'react-router-dom';
 
-import Users from '../Users/Users';
+import UsersPage from '../UsersPage/UsersPage';
 import ChatServerManager from '../ChatServerManager/ChatServerManager';
 
-import './AdminPage.css';
+import './DashoboardLayout.css';
 
-export default class AdminPage extends React.Component {
+export default class DashoboardLayout extends React.Component {
 
     state = {}
 
@@ -19,16 +19,16 @@ export default class AdminPage extends React.Component {
             marginLeft: '110px'
         };
         return (
-            <div className='l-admin'>
+            <div className='l-dashboard'>
                 <Menu fixed="left" width='thin' icon='labeled' vertical inverted>
                     <Link className='item' to='/admin/users'>
                         <Icon name='users' />
                         Операторы
-                </Link>
+                    </Link>
                     <Link className='item' to='/admin/server'>
                         <Icon name='settings' />
                         Сервер
-                </Link>
+                    </Link>
                     <Menu.Item></Menu.Item>
                 </Menu>
                 <div style={style}>
@@ -36,7 +36,7 @@ export default class AdminPage extends React.Component {
                         <Grid.Row>
                             <Grid.Column>
                                 <Switch>
-                                    <Route path='/admin/users' component={Users} />
+                                    <Route path='/admin/users' component={UsersPage} />
                                     <Route exact path='/admin/server' component={ChatServerManager} />
                                 </Switch>
                             </Grid.Column>

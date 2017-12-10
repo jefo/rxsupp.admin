@@ -44,6 +44,7 @@ export const createSagas = (api) => ({
     },
 
     * all() {
+        console.log('this', this);
         yield takeEvery(Actions.userRemove, this.removeUser);
         yield takeLatest(Actions.usersFetch, this.fetchUsers);
         yield takeLatest(Actions.userUpdate, this.updateUser);

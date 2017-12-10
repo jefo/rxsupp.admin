@@ -74,13 +74,12 @@ describe('users', () => {
             });
         });
     });
-
     describe('saga', () => {
         let sagas;
         let respData;
         let api;
 
-        before(() => {
+        beforeAll(() => {
             respData = {
                 'joe': { login: 'joe' },
                 'pit': { login: 'pit' }
@@ -92,7 +91,6 @@ describe('users', () => {
             };
             sagas = createSagas(api);
         });
-
         it('fetchUsers', () => {
             const gen = sagas.fetchUsers();
             assert.deepEqual(
