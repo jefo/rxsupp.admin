@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class UsersListItem extends React.Component {
     render() {
         const { user } = this.props;
-       return (
+        return (
             <List.Item key={user.login} as={Link} to={`/admin/users/${user.login}`}>
                 <Image avatar src={user.avatar} />
                 <List.Content>
