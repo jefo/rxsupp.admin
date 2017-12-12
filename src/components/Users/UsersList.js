@@ -26,12 +26,10 @@ export const EmptyListItem = () => (
 export default class UsersList extends React.Component {
 
     render() {
-        const { match, users } = this.props;
+        const { users } = this.props;
         let content;
         if (users.length === 0) {
-            content = (
-                <EmptyListItem />
-            )
+            content = (<EmptyListItem />)
         } else {
             content = users.map(user => (<UsersListItem key={user.login} user={user} />));
         }

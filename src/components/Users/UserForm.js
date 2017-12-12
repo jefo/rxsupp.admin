@@ -15,7 +15,7 @@ import {
     Label
 } from 'semantic-ui-react';
 
-export default class UserEditor extends React.Component {
+export default class UserForm extends React.Component {
 
     state = {
         firstName: '',
@@ -29,20 +29,19 @@ export default class UserEditor extends React.Component {
     }
 
     componentWillMount() {
-        const { match, users } = this.props;
-        let user = users[match.params.login];
-        if (user) {
-            this.setState(user);
-        }
+        this.setState({
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            login: this.props.user.login
+        });
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.login !== nextProps.match.params && nextProps.match.params.login) {
-            let user = this.props.users[nextProps.match.params.login];
-            if (user) {
-                this.setState(user);
-            }
-        }
+        this.setState({
+            firstName: nextProps.user.firstName,
+            lastName: nextProps.user.lastName,
+            login: nextProps.user.login
+        });
     }
 
     handleInputChange(event) {
@@ -60,7 +59,7 @@ export default class UserEditor extends React.Component {
             <Form>
                 <Form.Group inline>
                     <Form.Field>
-                        <input className='input-upload-avatar' id='avatar-input' type='file' />
+                        <input name='avatar' className='input-upload-avatar' id='avatar-input' type='file' />
                         <label className='btn-upload-avatar' htmlFor='avatar-input'>
                             <Icon color='blue' name='user' size='huge' circular />
                         </label>

@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import UsersList from '../../components/Users/UsersList';
-import UserEditor from './UserEditor';
+import UserForm from './UserForm';
 import { Actions } from '../../redux/users';
 
 export default class UsersPage extends React.Component {
@@ -22,7 +22,7 @@ export default class UsersPage extends React.Component {
                     </Grid.Column>
                     <Grid.Column>
                         <Route exact path='/admin/users/:login' render={
-                            props => (<UserEditor users={this.props.users} removeUser={this.props.removeUser} updateUser={this.props.updateUser} {...props} />)
+                            props => (<UserForm user={this.props.users[props.match.params.login]} removeUser={this.props.removeUser} updateUser={this.props.updateUser} />)
                         } />
                     </Grid.Column>
                 </Grid.Row>
